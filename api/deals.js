@@ -45,12 +45,28 @@ Make deals realistic and varied. Include well known brands.`
     });
 
     const data = await response.json();
-    const text = (data.content || []).map(b => b.text || "").join("");
-    const match = text.replace(/```json|```/g, "").trim().match(/\[[\s\S]*\]/);
-    if (!match) throw new Error("No JSON found");
-    const deals = JSON.parse(match[0]);
 
-    return res.status(200).json({ deals });
+// Log the full response to help debug
+console.log("Anthropic response:", JSON.stringify(data));
+
+if (data.error) {
+  console.log("API Error:", data.error);
+  return res.status(500).json({ error: data.error.message });
+}
+
+const text = (data.content || []).map(b => b.text || "").join("");
+console.log("Text received:", text.substring(0, 200));
+
+const clean = text.replace(/```json|```/g, "").trim();
+const match = clean.match(/\[[\s\S]*\]/);
+if (!match) {
+  console.log("No JSON array found in response");
+  throw new Error("No JSON found");
+}
+const deals = JSON.parse(match[0]);
+console.log("Deals found:", deals.length);
+
+return res.status(200).json({ deals });
 
   } catch (error) {
     return res.status(500).json({ error: "Failed to fetch deals" });
