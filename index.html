@@ -8,307 +8,98 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* ── RESET & BASE ── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: #f7f3ee; color: #1a1008; }
   a { text-decoration: none; color: inherit; }
   button { font-family: 'DM Sans', sans-serif; cursor: pointer; }
 
-  /* ── ANIMATIONS ── */
-  @keyframes fadeUp   { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-  @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
-  @keyframes float    { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
-  @keyframes shimmer  { 0%{background-position:-200% center} 100%{background-position:200% center} }
-  @keyframes spin     { to { transform: rotate(360deg); } }
-  @keyframes pulse    { 0%,100%{opacity:.4} 50%{opacity:1} }
-  @keyframes slide    { 0%{opacity:0;transform:translateX(20px)} 100%{opacity:1;transform:translateX(0)} }
+  @keyframes fadeUp  { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
+  @keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+  @keyframes spin    { to { transform: rotate(360deg); } }
+  @keyframes pulse   { 0%,100%{opacity:.4} 50%{opacity:1} }
 
-  /* ── HEADER ── */
-  header {
-    background: #1a1008;
-    position: sticky; top: 0; z-index: 100;
-    box-shadow: 0 2px 20px rgba(0,0,0,0.4);
-  }
-  .header-top {
-    max-width: 1280px; margin: 0 auto;
-    padding: 0 24px;
-    display: flex; align-items: center; gap: 16px; height: 68px;
-  }
-  .logo {
-    display: flex; align-items: center; gap: 10px;
-    cursor: pointer; min-width: 160px; text-decoration: none;
-  }
+  header { background: #1a1008; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 20px rgba(0,0,0,0.4); }
+  .header-top { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; align-items: center; gap: 16px; height: 68px; }
+  .logo { display: flex; align-items: center; gap: 10px; cursor: pointer; min-width: 160px; }
   .logo-icon { font-size: 28px; animation: float 4s ease-in-out infinite; }
   .logo-text { font-family: 'Playfair Display', serif; font-size: 22px; color: #c8a97e; line-height: 1; }
   .logo-sub  { font-size: 9px; color: #8a7a6a; letter-spacing: 2px; text-transform: uppercase; }
-
   .search-wrap { flex: 1; display: flex; }
-  .search-wrap input {
-    flex: 1; padding: 12px 18px;
-    background: #fff; border: none;
-    border-radius: 10px 0 0 10px;
-    font-size: 14px; outline: none;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .search-wrap button {
-    padding: 12px 24px;
-    background: #c8a97e; color: #1a1008;
-    border: none; border-radius: 0 10px 10px 0;
-    font-weight: 700; font-size: 14px;
-    transition: background .2s;
-  }
+  .search-wrap input { flex: 1; padding: 12px 18px; background: #fff; border: none; border-radius: 10px 0 0 10px; font-size: 14px; outline: none; font-family: 'DM Sans', sans-serif; }
+  .search-wrap button { padding: 12px 24px; background: #c8a97e; color: #1a1008; border: none; border-radius: 0 10px 10px 0; font-weight: 700; font-size: 14px; }
   .search-wrap button:hover { background: #b8956a; }
-
-  /* Category ribbon */
-  .cat-ribbon {
-    background: #110a02;
-    border-top: 1px solid rgba(200,169,126,0.15);
-    overflow-x: auto; white-space: nowrap;
-  }
-  .cat-ribbon-inner {
-    max-width: 1280px; margin: 0 auto;
-    padding: 0 24px; display: flex;
-  }
-  .cat-btn {
-    padding: 9px 16px;
-    background: none; border: none;
-    color: #b0a090; font-size: 12px; font-weight: 500;
-    transition: color .2s; flex-shrink: 0;
-    font-family: 'DM Sans', sans-serif;
-  }
+  .cat-ribbon { background: #110a02; border-top: 1px solid rgba(200,169,126,0.15); overflow-x: auto; white-space: nowrap; }
+  .cat-ribbon-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; display: flex; }
+  .cat-btn { padding: 9px 16px; background: none; border: none; color: #b0a090; font-size: 12px; font-weight: 500; flex-shrink: 0; font-family: 'DM Sans', sans-serif; }
   .cat-btn:hover { color: #c8a97e; }
 
-  /* ── MAIN ── */
   main { max-width: 1280px; margin: 0 auto; padding: 32px 24px; }
 
-  /* ── HERO ── */
-  .hero {
-    background: #2c1810;
-    border-radius: 20px; overflow: hidden;
-    padding: 56px; margin-bottom: 32px;
-    position: relative; min-height: 280px;
-    display: flex; align-items: center;
-    box-shadow: 0 8px 40px rgba(0,0,0,0.2);
-    animation: fadeUp .6s ease;
-  }
-  .hero-bg-emoji {
-    position: absolute; right: 56px; top: 50%;
-    transform: translateY(-50%);
-    font-size: 130px; opacity: .15;
-    transition: all .8s ease;
-  }
+  .hero { background: #2c1810; border-radius: 20px; padding: 56px; margin-bottom: 32px; position: relative; min-height: 280px; display: flex; align-items: center; box-shadow: 0 8px 40px rgba(0,0,0,0.2); }
+  .hero-bg-emoji { position: absolute; right: 56px; top: 50%; transform: translateY(-50%); font-size: 130px; opacity: .15; }
   .hero-content { position: relative; z-index: 1; }
-  .hero-tag {
-    font-size: 11px; color: #c8a97e;
-    letter-spacing: 3px; text-transform: uppercase;
-    font-weight: 700; margin-bottom: 12px;
-  }
-  .hero h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 46px; color: #fff;
-    line-height: 1.1; margin-bottom: 12px;
-  }
+  .hero-tag { font-size: 11px; color: #c8a97e; letter-spacing: 3px; text-transform: uppercase; font-weight: 700; margin-bottom: 12px; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: 46px; color: #fff; line-height: 1.1; margin-bottom: 12px; }
   .hero p { font-size: 17px; color: rgba(255,255,255,.65); margin-bottom: 28px; }
-  .hero-btn {
-    padding: 14px 32px;
-    background: #c8a97e; color: #1a1008;
-    border: none; border-radius: 12px;
-    font-size: 15px; font-weight: 700;
-    transition: all .2s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .hero-btn:hover { background: #b8956a; transform: translateY(-2px); }
+  .hero-btn { padding: 14px 32px; background: #c8a97e; color: #1a1008; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: 'DM Sans', sans-serif; }
+  .hero-btn:hover { background: #b8956a; }
   .hero-dots { position: absolute; bottom: 16px; right: 56px; display: flex; gap: 6px; }
-  .hero-dot {
-    height: 8px; border-radius: 4px;
-    background: rgba(255,255,255,.3);
-    cursor: pointer; transition: all .3s;
-  }
+  .hero-dot { height: 8px; border-radius: 4px; background: rgba(255,255,255,.3); cursor: pointer; transition: all .3s; }
 
-  /* ── TRENDING ── */
-  .trending {
-    background: #fff; border-radius: 14px;
-    padding: 14px 20px; margin-bottom: 32px;
-    border: 1px solid #e8e0d5;
-    display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
-  }
+  .trending { background: #fff; border-radius: 14px; padding: 14px 20px; margin-bottom: 32px; border: 1px solid #e8e0d5; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .trending-label { font-size: 12px; font-weight: 700; color: #8a7a6a; letter-spacing: 1px; text-transform: uppercase; }
-  .trend-pill {
-    padding: 5px 14px;
-    background: #f7f3ee; color: #1a1008;
-    border: 1px solid #e8e0d5; border-radius: 20px;
-    font-size: 12px; font-weight: 500;
-    transition: all .2s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .trend-pill:hover { background: #c8a97e; color: #1a1008; border-color: #c8a97e; }
+  .trend-pill { padding: 5px 14px; background: #f7f3ee; color: #1a1008; border: 1px solid #e8e0d5; border-radius: 20px; font-size: 12px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+  .trend-pill:hover { background: #c8a97e; border-color: #c8a97e; }
 
-  /* ── SECTION TITLE ── */
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px; color: #1a1008; margin-bottom: 20px;
-  }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 26px; color: #1a1008; margin-bottom: 20px; }
 
-  /* ── CATEGORY GRID ── */
-  .cat-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-    gap: 12px; margin-bottom: 40px;
-  }
-  .cat-card {
-    background: #fff; border-radius: 14px;
-    padding: 18px 10px; border: 1px solid #e8e0d5;
-    text-align: center; cursor: pointer;
-    transition: all .25s;
-    animation: fadeUp .4s ease both;
-  }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 12px; margin-bottom: 40px; }
+  .cat-card { background: #fff; border-radius: 14px; padding: 18px 10px; border: 1px solid #e8e0d5; text-align: center; cursor: pointer; transition: all .25s; }
   .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.1); border-color: #c8a97e; }
   .cat-emoji { font-size: 32px; margin-bottom: 8px; }
   .cat-name { font-size: 11px; font-weight: 600; color: #1a1008; line-height: 1.3; }
 
-  /* ── STORE BADGES ── */
   .stores-wrap { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
-  .store-badge {
-    padding: 10px 20px;
-    background: #fff; border: 1px solid #e8e0d5;
-    border-radius: 10px; font-size: 13px;
-    font-weight: 600; color: #1a1008;
-    box-shadow: 0 2px 8px rgba(0,0,0,.04);
-  }
+  .store-badge { padding: 10px 20px; background: #fff; border: 1px solid #e8e0d5; border-radius: 10px; font-size: 13px; font-weight: 600; }
 
-  /* ── HOW IT WORKS ── */
-  .how-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
-    gap: 24px;
-  }
+  .how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 24px; }
   .how-card { text-align: center; padding: 24px 16px; }
   .how-icon { font-size: 40px; margin-bottom: 14px; }
   .how-title { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 8px; }
   .how-desc { font-size: 13px; color: #8a7a6a; line-height: 1.7; }
 
-  /* ── AGENT LOG ── */
-  .agent-log {
-    background: #1a1008; border-radius: 14px;
-    padding: 16px; margin-bottom: 24px;
-    border: 1px solid rgba(200,169,126,.2);
-    display: none;
-  }
-  .agent-log.visible { display: block; animation: fadeIn .3s ease; }
-  .agent-log-title {
-    font-size: 11px; color: #c8a97e;
-    font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; margin-bottom: 10px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .spinner {
-    width: 14px; height: 14px;
-    border: 2px solid rgba(200,169,126,.3);
-    border-top-color: #c8a97e;
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
-    display: none;
-  }
+  .agent-log { background: #1a1008; border-radius: 14px; padding: 16px; margin-bottom: 24px; border: 1px solid rgba(200,169,126,.2); display: none; }
+  .agent-log.visible { display: block; }
+  .agent-log-title { font-size: 11px; color: #c8a97e; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .spinner { width: 14px; height: 14px; border: 2px solid rgba(200,169,126,.3); border-top-color: #c8a97e; border-radius: 50%; animation: spin .8s linear infinite; display: none; }
   .spinner.visible { display: block; }
   .log-lines { max-height: 80px; overflow-y: auto; }
   .log-line { font-size: 11px; color: #8a7a6a; margin-bottom: 3px; display: flex; gap: 10px; }
   .log-time { color: #5a4a3a; min-width: 65px; }
 
-  /* ── RESULTS HEADER ── */
-  .results-header {
-    display: flex; align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
-    display: none;
-  }
+  .results-header { display: none; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
   .results-header.visible { display: flex; }
   .results-title { font-family: 'Playfair Display', serif; font-size: 22px; }
   .results-sub { font-size: 13px; color: #8a7a6a; margin-top: 2px; }
-  .verified-badge {
-    padding: 6px 14px; border-radius: 8px;
-    background: rgba(45,106,79,.1);
-    border: 1px solid rgba(45,106,79,.3);
-    color: #2d6a4f; font-size: 12px; font-weight: 600;
-  }
+  .verified-badge { padding: 6px 14px; border-radius: 8px; background: rgba(45,106,79,.1); border: 1px solid rgba(45,106,79,.3); color: #2d6a4f; font-size: 12px; font-weight: 600; }
 
-  /* ── FILTERS ── */
-  .filters {
-    display: flex; gap: 8px; flex-wrap: wrap;
-    margin-bottom: 20px; display: none;
-  }
+  .filters { display: none; gap: 8px; flex-wrap: wrap; margin-bottom: 20px; }
   .filters.visible { display: flex; }
-  .filter-btn {
-    padding: 6px 14px; border-radius: 8px;
-    background: #fff; color: #8a7a6a;
-    border: 1px solid #e8e0d5;
-    font-size: 12px; font-weight: 500;
-    transition: all .2s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    background: #1a1008; color: #c8a97e;
-    border-color: #1a1008;
-  }
-  select.filter-select {
-    padding: 6px 12px; border-radius: 8px;
-    border: 1px solid #e8e0d5;
-    background: #fff; font-size: 13px;
-    color: #1a1008; cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-  }
+  .filter-btn { padding: 6px 14px; border-radius: 8px; background: #fff; color: #8a7a6a; border: 1px solid #e8e0d5; font-size: 12px; font-weight: 500; font-family: 'DM Sans', sans-serif; }
+  .filter-btn.active { background: #1a1008; color: #c8a97e; border-color: #1a1008; }
+  select.filter-select { padding: 6px 12px; border-radius: 8px; border: 1px solid #e8e0d5; background: #fff; font-size: 13px; color: #1a1008; font-family: 'DM Sans', sans-serif; }
 
-  /* ── DEAL GRID ── */
-  .deal-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
-  }
+  .deal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
 
-  /* ── DEAL CARD ── */
-  .deal-card {
-    background: #fff; border-radius: 16px;
-    padding: 20px; border: 1px solid #e8e0d5;
-    box-shadow: 0 2px 12px rgba(0,0,0,.06);
-    transition: all .25s; cursor: pointer;
-    position: relative; overflow: hidden;
-    animation: fadeUp .4s ease both;
-    display: flex; flex-direction: column;
-  }
-  .deal-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 16px 48px rgba(0,0,0,.12);
-    border-color: #c8a97e;
-  }
-  .deal-discount {
-    position: absolute; top: 12px; right: 12px;
-    background: #c0392b; color: #fff;
-    border-radius: 6px; padding: 3px 8px;
-    font-size: 11px; font-weight: 700;
-  }
-  .deal-badge {
-    position: absolute; top: 12px; left: 12px;
-    background: #1a1008; color: #c8a97e;
-    border-radius: 6px; padding: 3px 8px;
-    font-size: 10px; font-weight: 700; letter-spacing: .5px;
-  }
-  .deal-img {
-    height: 160px; border-radius: 12px;
-    margin-bottom: 16px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 56px;
-  }
-  .deal-store {
-    font-size: 10px; color: #c8a97e;
-    font-weight: 700; letter-spacing: 1.5px;
-    text-transform: uppercase; margin-bottom: 4px;
-  }
-  .deal-name {
-    font-size: 14px; font-weight: 600;
-    color: #1a1008; line-height: 1.4;
-    margin-bottom: 8px; min-height: 40px;
-    flex: 1;
-  }
+  .deal-card { background: #fff; border-radius: 16px; padding: 20px; border: 1px solid #e8e0d5; box-shadow: 0 2px 12px rgba(0,0,0,.06); transition: all .25s; cursor: pointer; position: relative; overflow: hidden; display: flex; flex-direction: column; animation: fadeUp 0.4s ease both; }
+  .deal-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(0,0,0,.12); border-color: #c8a97e; }
+  .deal-discount { position: absolute; top: 12px; right: 12px; background: #c0392b; color: #fff; border-radius: 6px; padding: 3px 8px; font-size: 11px; font-weight: 700; }
+  .deal-badge { position: absolute; top: 12px; left: 12px; background: #1a1008; color: #c8a97e; border-radius: 6px; padding: 3px 8px; font-size: 10px; font-weight: 700; }
+  .deal-img { height: 160px; border-radius: 12px; margin-bottom: 16px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+  .deal-store { font-size: 10px; color: #c8a97e; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px; }
+  .deal-name { font-size: 14px; font-weight: 600; color: #1a1008; line-height: 1.4; margin-bottom: 8px; min-height: 40px; flex: 1; }
   .stars { display: flex; gap: 2px; align-items: center; margin-bottom: 10px; }
   .star { font-size: 12px; }
   .star.on { color: #f59e0b; }
@@ -318,41 +109,15 @@
   .deal-price { font-family: 'Playfair Display', serif; font-size: 24px; color: #1a1008; }
   .deal-orig  { font-size: 13px; color: #8a7a6a; text-decoration: line-through; }
   .deal-ship  { font-size: 11px; color: #2d6a4f; font-weight: 600; margin-bottom: 14px; }
-  .deal-btn {
-    width: 100%; padding: 11px 0;
-    background: #1a1008; color: #c8a97e;
-    border: none; border-radius: 10px;
-    font-size: 13px; font-weight: 700;
-    letter-spacing: .5px; transition: all .2s;
-    font-family: 'DM Sans', sans-serif;
-  }
-  .deal-btn:hover { background: #2c1810; transform: translateY(-1px); }
+  .deal-btn { width: 100%; padding: 11px 0; background: #1a1008; color: #c8a97e; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; font-family: 'DM Sans', sans-serif; }
+  .deal-btn:hover { background: #2c1810; }
 
-  /* ── SKELETON ── */
-  .skeleton {
-    background: #fff; border-radius: 16px;
-    padding: 20px; border: 1px solid #e8e0d5;
-  }
-  .skel-block {
-    background: #e8e0d5; border-radius: 6px;
-    animation: pulse 1.5s ease infinite;
-  }
+  .skeleton { background: #fff; border-radius: 16px; padding: 20px; border: 1px solid #e8e0d5; }
+  .skel-block { background: #e8e0d5; border-radius: 6px; animation: pulse 1.5s ease infinite; }
 
-  /* ── MODAL ── */
-  .modal-overlay {
-    position: fixed; inset: 0; z-index: 500;
-    background: rgba(0,0,0,.6); backdrop-filter: blur(4px);
-    display: none; align-items: center; justify-content: center;
-    padding: 20px; animation: fadeIn .2s ease;
-  }
+  .modal-overlay { position: fixed; inset: 0; z-index: 500; background: rgba(0,0,0,.6); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.visible { display: flex; }
-  .modal {
-    background: #fff; border-radius: 24px;
-    max-width: 540px; width: 100%;
-    padding: 32px; box-shadow: 0 32px 80px rgba(0,0,0,.25);
-    animation: fadeUp .3s ease;
-    max-height: 90vh; overflow-y: auto;
-  }
+  .modal { background: #fff; border-radius: 24px; max-width: 540px; width: 100%; padding: 32px; box-shadow: 0 32px 80px rgba(0,0,0,.25); max-height: 90vh; overflow-y: auto; }
   .modal-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; }
   .modal-store { font-size: 10px; color: #c8a97e; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; }
   .modal-close { background: none; border: none; font-size: 24px; color: #8a7a6a; cursor: pointer; }
@@ -366,72 +131,47 @@
   .modal-info-label { font-size: 12px; color: #8a7a6a; margin-bottom: 4px; }
   .modal-info-text { font-size: 13px; color: #1a1008; line-height: 1.6; }
   .modal-btns { display: flex; gap: 10px; }
-  .modal-go {
-    flex: 1; padding: 14px 0;
-    background: #1a1008; color: #c8a97e;
-    border: none; border-radius: 12px;
-    font-size: 15px; font-weight: 700;
-    transition: all .2s; font-family: 'DM Sans', sans-serif;
-  }
+  .modal-go { flex: 1; padding: 14px 0; background: #1a1008; color: #c8a97e; border: none; border-radius: 12px; font-size: 15px; font-weight: 700; font-family: 'DM Sans', sans-serif; }
   .modal-go:hover { background: #2c1810; }
-  .modal-cancel {
-    padding: 14px 20px;
-    background: none; color: #8a7a6a;
-    border: 1px solid #e8e0d5; border-radius: 12px;
-    font-size: 14px; font-family: 'DM Sans', sans-serif;
-  }
+  .modal-cancel { padding: 14px 20px; background: none; color: #8a7a6a; border: 1px solid #e8e0d5; border-radius: 12px; font-size: 14px; font-family: 'DM Sans', sans-serif; }
 
-  /* ── FOOTER ── */
-  footer {
-    background: #1a1008; margin-top: 64px;
-    padding: 40px 0 24px;
-    border-top: 1px solid rgba(200,169,126,.15);
-  }
+  footer { background: #1a1008; margin-top: 64px; padding: 40px 0 24px; border-top: 1px solid rgba(200,169,126,.15); }
   .footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
   .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 32px; margin-bottom: 40px; }
   .footer-brand { font-family: 'Playfair Display', serif; font-size: 22px; color: #c8a97e; margin-bottom: 10px; }
   .footer-desc { font-size: 13px; color: #8a7a6a; line-height: 1.8; }
   .footer-col-title { font-size: 11px; color: #c8a97e; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
-  .footer-link { font-size: 13px; color: #8a7a6a; margin-bottom: 8px; cursor: pointer; transition: color .2s; display: block; }
+  .footer-link { font-size: 13px; color: #8a7a6a; margin-bottom: 8px; cursor: pointer; display: block; }
   .footer-link:hover { color: #c8a97e; }
   .footer-bottom { border-top: 1px solid rgba(200,169,126,.15); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
   .footer-copy { font-size: 12px; color: #5a4a3a; }
 
-  /* ── EMPTY STATE ── */
-  .empty-state { text-align: center; padding: 80px 20px; animation: fadeIn .4s ease; }
+  .empty-state { text-align: center; padding: 80px 20px; }
   .empty-icon  { font-size: 64px; margin-bottom: 20px; animation: float 3s ease-in-out infinite; }
   .empty-title { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 10px; }
   .empty-sub   { font-size: 15px; color: #8a7a6a; max-width: 400px; margin: 0 auto 30px; line-height: 1.7; }
   .empty-pills { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-  .empty-pill  {
-    padding: 8px 18px; background: #fff;
-    border: 1px solid #e8e0d5; border-radius: 8px;
-    font-size: 13px; color: #1a1008;
-    transition: all .2s; font-family: 'DM Sans', sans-serif;
-  }
+  .empty-pill  { padding: 8px 18px; background: #fff; border: 1px solid #e8e0d5; border-radius: 8px; font-size: 13px; color: #1a1008; font-family: 'DM Sans', sans-serif; }
   .empty-pill:hover { background: #c8a97e; border-color: #c8a97e; }
 
-  /* Responsive */
   @media (max-width: 600px) {
     .hero { padding: 32px 24px; }
     .hero h1 { font-size: 30px; }
     .hero-bg-emoji { display: none; }
-    .header-top { gap: 10px; }
   }
 </style>
 </head>
 <body>
 
-<!-- ── HEADER ── -->
 <header>
   <div class="header-top">
-    <a class="logo" onclick="showHome()">
+    <div class="logo" onclick="showHome()">
       <span class="logo-icon">🛍️</span>
       <div>
         <div class="logo-text">MyDealZone</div>
         <div class="logo-sub">AI-Powered Deals</div>
       </div>
-    </a>
+    </div>
     <div class="search-wrap">
       <input type="text" id="searchInput" placeholder='Search deals — e.g. "leather purse", "running shoes"...' onkeydown="if(event.key==='Enter')doSearch()">
       <button onclick="doSearch()">Find Deals</button>
@@ -442,38 +182,30 @@
   </div>
 </header>
 
-<!-- ── MAIN ── -->
 <main>
-
-  <!-- HOME PAGE -->
   <div id="homePage">
-    <!-- Hero -->
-    <div class="hero" id="hero">
+    <div class="hero">
       <div class="hero-bg-emoji" id="heroBgEmoji">👜</div>
       <div class="hero-content">
         <div class="hero-tag">Limited Time Offers</div>
         <h1 id="heroTitle">Summer Bag Sale</h1>
         <p id="heroSub">Up to 60% off designer bags across every major store</p>
-        <button class="hero-btn" onclick="doSearch('bags')">Shop Now →</button>
+        <button class="hero-btn" id="heroBtn" onclick="doSearch('bags')">Shop Now →</button>
       </div>
       <div class="hero-dots" id="heroDots"></div>
     </div>
 
-    <!-- Trending -->
     <div class="trending">
       <span class="trending-label">🔥 Trending:</span>
       <div id="trendingPills"></div>
     </div>
 
-    <!-- Categories -->
     <h2 class="section-title">Shop by Category</h2>
     <div class="cat-grid" id="catGrid"></div>
 
-    <!-- Stores -->
     <h2 class="section-title">We Search These Stores For You</h2>
     <div class="stores-wrap" id="storesWrap"></div>
 
-    <!-- How it works -->
     <div style="background:#fff;border-radius:20px;padding:36px;border:1px solid #e8e0d5;margin-bottom:40px;">
       <h2 class="section-title" style="text-align:center;margin-bottom:28px;">How MyDealZone Works</h2>
       <div class="how-grid">
@@ -485,9 +217,7 @@
     </div>
   </div>
 
-  <!-- RESULTS PAGE -->
   <div id="resultsPage" style="display:none;">
-    <!-- Agent log -->
     <div class="agent-log" id="agentLog">
       <div class="agent-log-title">
         <div class="spinner" id="spinner"></div>
@@ -496,7 +226,6 @@
       <div class="log-lines" id="logLines"></div>
     </div>
 
-    <!-- Results header -->
     <div class="results-header" id="resultsHeader">
       <div>
         <div class="results-title" id="resultsTitle">Results</div>
@@ -505,7 +234,6 @@
       <div class="verified-badge">✓ AI Verified Deals</div>
     </div>
 
-    <!-- Filters -->
     <div class="filters" id="filtersBar">
       <select class="filter-select" id="sortSelect" onchange="applyFilters()">
         <option value="discount">Best Discount</option>
@@ -514,21 +242,17 @@
       </select>
     </div>
 
-    <!-- Deal grid -->
     <div class="deal-grid" id="dealGrid"></div>
 
-    <!-- Empty state (shown before first search) -->
     <div class="empty-state" id="emptyState">
       <div class="empty-icon">🛍️</div>
       <div class="empty-title">Your AI Deal Agent is Ready</div>
-      <div class="empty-sub">Search for any product above and our AI will scan every major store to find you the best deals instantly.</div>
+      <div class="empty-sub">Search for any product above and our AI will scan every major store to find the best deals instantly.</div>
       <div class="empty-pills" id="emptyPills"></div>
     </div>
   </div>
-
 </main>
 
-<!-- ── FOOTER ── -->
 <footer>
   <div class="footer-inner">
     <div class="footer-grid">
@@ -565,9 +289,8 @@
   </div>
 </footer>
 
-<!-- ── MODAL ── -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
-  <div class="modal" id="modal">
+  <div class="modal">
     <div class="modal-top">
       <div class="modal-store" id="modalStore"></div>
       <button class="modal-close" onclick="closeModalDirect()">×</button>
@@ -593,325 +316,277 @@
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────────
-const AFFILIATE_ID = "mydealzone-20";
-const API_KEY = "REPLACE_WITH_KEY";
-const CATEGORIES = [
-  { id:"bags",        label:"Bags & Purses",    emoji:"👜" },
-  { id:"shoes",       label:"Shoes & Boots",    emoji:"👟" },
-  { id:"electronics", label:"Electronics",       emoji:"📱" },
-  { id:"watches",     label:"Watches",           emoji:"⌚" },
-  { id:"jewelry",     label:"Jewelry",           emoji:"💍" },
-  { id:"home",        label:"Home & Kitchen",   emoji:"🏠" },
-  { id:"beauty",      label:"Beauty",            emoji:"💄" },
-  { id:"sports",      label:"Sports & Outdoors", emoji:"🏃" },
-  { id:"toys",        label:"Toys & Games",      emoji:"🎮" },
-  { id:"books",       label:"Books & Media",     emoji:"📚" },
+var AFFILIATE_ID = "mydealzone-20";
+
+var CATEGORIES = [
+  { id:"bags",        label:"Bags & Purses",     emoji:"👜" },
+  { id:"shoes",       label:"Shoes & Boots",     emoji:"👟" },
+  { id:"electronics", label:"Electronics",        emoji:"📱" },
+  { id:"watches",     label:"Watches",            emoji:"⌚" },
+  { id:"jewelry",     label:"Jewelry",            emoji:"💍" },
+  { id:"home",        label:"Home & Kitchen",    emoji:"🏠" },
+  { id:"beauty",      label:"Beauty",             emoji:"💄" },
+  { id:"sports",      label:"Sports & Outdoors",  emoji:"🏃" },
+  { id:"toys",        label:"Toys & Games",       emoji:"🎮" },
+  { id:"books",       label:"Books & Media",      emoji:"📚" }
 ];
 
-const STORES = ["Amazon","Walmart","Target","Macy's","Nordstrom","eBay","Best Buy","Etsy","Costco","Zappos"];
-
-const TRENDING = ["Leather Tote Bag","Running Shoes","Air Fryer","Smart Watch","Gold Earrings","Yoga Mat","Lip Gloss Set","Wireless Earbuds"];
-
-const HEROES = [
-  { title:"Summer Bag Sale",    sub:"Up to 60% off designer bags across every major store",      emoji:"👜", search:"bags" },
-  { title:"Tech Week Deals",    sub:"Massive discounts on the latest electronics",                emoji:"📱", search:"electronics" },
-  { title:"Shoe Season Sale",   sub:"Find the best deals on shoes across 10+ stores",            emoji:"👟", search:"shoes" },
+var STORES   = ["Amazon","Walmart","Target","Macy's","Nordstrom","eBay","Best Buy","Etsy","Costco","Zappos"];
+var TRENDING = ["Leather Tote Bag","Running Shoes","Air Fryer","Smart Watch","Gold Earrings","Yoga Mat","Lip Gloss Set","Wireless Earbuds"];
+var HEROES   = [
+  { title:"Summer Bag Sale",  sub:"Up to 60% off designer bags across every major store", emoji:"👜", search:"bags" },
+  { title:"Tech Week Deals",  sub:"Massive discounts on the latest electronics",           emoji:"📱", search:"electronics" },
+  { title:"Shoe Season Sale", sub:"Find the best deals on shoes across 10+ stores",       emoji:"👟", search:"shoes" }
 ];
 
-// ── STATE ────────────────────────────────────────────────
-let allDeals = [];
-let currentQuery = "";
-let currentModal = null;
-let heroIndex = 0;
+var allDeals     = [];
+var currentQuery = "";
+var heroIndex    = 0;
 
-// ── BUILD UI ─────────────────────────────────────────────
 function buildUI() {
-  // Category ribbon
-  const ribbon = document.getElementById("catRibbon");
-  CATEGORIES.forEach(c => {
-    const b = document.createElement("button");
+  var ribbon = document.getElementById("catRibbon");
+  CATEGORIES.forEach(function(c) {
+    var b = document.createElement("button");
     b.className = "cat-btn";
-    b.innerHTML = c.emoji + " " + c.label;
-    b.onclick = () => doSearch(c.label);
+    b.textContent = c.emoji + " " + c.label;
+    b.onclick = function(){ doSearch(c.label); };
     ribbon.appendChild(b);
   });
 
-  // Category grid
-  const grid = document.getElementById("catGrid");
-  CATEGORIES.forEach((c,i) => {
-    const d = document.createElement("div");
+  var grid = document.getElementById("catGrid");
+  CATEGORIES.forEach(function(c) {
+    var d = document.createElement("div");
     d.className = "cat-card";
-    d.style.animationDelay = (i*40)+"ms";
-    d.innerHTML = `<div class="cat-emoji">${c.emoji}</div><div class="cat-name">${c.label}</div>`;
-    d.onclick = () => doSearch(c.label);
+    d.innerHTML = '<div class="cat-emoji">' + c.emoji + '</div><div class="cat-name">' + c.label + '</div>';
+    d.onclick = function(){ doSearch(c.label); };
     grid.appendChild(d);
   });
 
-  // Stores
-  const sw = document.getElementById("storesWrap");
-  STORES.forEach(s => {
-    const d = document.createElement("div");
+  var sw = document.getElementById("storesWrap");
+  STORES.forEach(function(s) {
+    var d = document.createElement("div");
     d.className = "store-badge";
     d.textContent = s;
     sw.appendChild(d);
   });
 
-  // Trending pills
-  const tp = document.getElementById("trendingPills");
-  TRENDING.forEach(t => {
-    const b = document.createElement("button");
+  var tp = document.getElementById("trendingPills");
+  TRENDING.forEach(function(t) {
+    var b = document.createElement("button");
     b.className = "trend-pill";
     b.textContent = t;
-    b.onclick = () => doSearch(t);
+    b.onclick = function(){ doSearch(t); };
     tp.appendChild(b);
   });
 
-  // Empty pills
-  const ep = document.getElementById("emptyPills");
-  ["leather handbag","running shoes","air fryer","smart watch"].forEach(t => {
-    const b = document.createElement("button");
+  var ep = document.getElementById("emptyPills");
+  ["leather handbag","running shoes","air fryer","smart watch"].forEach(function(t) {
+    var b = document.createElement("button");
     b.className = "empty-pill";
     b.textContent = 'Try "' + t + '"';
-    b.onclick = () => doSearch(t);
+    b.onclick = function(){ doSearch(t); };
     ep.appendChild(b);
   });
 
-  // Hero dots
-  const dots = document.getElementById("heroDots");
-  HEROES.forEach((_,i) => {
-    const d = document.createElement("div");
+  var dots = document.getElementById("heroDots");
+  HEROES.forEach(function(h, i) {
+    var d = document.createElement("div");
     d.className = "hero-dot";
-    d.style.width = i===0?"24px":"8px";
-    d.style.background = i===0?"#c8a97e":"rgba(255,255,255,.3)";
-    d.onclick = () => setHero(i);
+    d.style.width = i === 0 ? "24px" : "8px";
+    d.style.background = i === 0 ? "#c8a97e" : "rgba(255,255,255,.3)";
+    d.onclick = function(){ setHero(i); };
     dots.appendChild(d);
   });
 
-  // Hero rotation
-  setInterval(() => setHero((heroIndex+1) % HEROES.length), 4500);
+  setInterval(function(){ setHero((heroIndex + 1) % HEROES.length); }, 4500);
 }
 
 function setHero(i) {
   heroIndex = i;
-  const h = HEROES[i];
-  document.getElementById("heroTitle").textContent = h.title;
-  document.getElementById("heroSub").textContent = h.sub;
+  var h = HEROES[i];
+  document.getElementById("heroTitle").textContent  = h.title;
+  document.getElementById("heroSub").textContent    = h.sub;
   document.getElementById("heroBgEmoji").textContent = h.emoji;
-  document.querySelector(".hero-btn").onclick = () => doSearch(h.search);
-  document.querySelectorAll(".hero-dot").forEach((d,j) => {
-    d.style.width = j===i?"24px":"8px";
-    d.style.background = j===i?"#c8a97e":"rgba(255,255,255,.3)";
+  document.getElementById("heroBtn").onclick = function(){ doSearch(h.search); };
+  document.querySelectorAll(".hero-dot").forEach(function(d, j) {
+    d.style.width      = j === i ? "24px" : "8px";
+    d.style.background = j === i ? "#c8a97e" : "rgba(255,255,255,.3)";
   });
 }
 
-// ── NAVIGATION ───────────────────────────────────────────
 function showHome() {
-  document.getElementById("homePage").style.display = "block";
+  document.getElementById("homePage").style.display    = "block";
   document.getElementById("resultsPage").style.display = "none";
   document.getElementById("searchInput").value = "";
 }
 
 function showResults() {
-  document.getElementById("homePage").style.display = "none";
+  document.getElementById("homePage").style.display    = "none";
   document.getElementById("resultsPage").style.display = "block";
 }
 
-// ── SEARCH ───────────────────────────────────────────────
 function doSearch(q) {
-  const query = (q || document.getElementById("searchInput").value).trim();
+  var query = (q || document.getElementById("searchInput").value).trim();
   if (!query) return;
   document.getElementById("searchInput").value = query;
   fetchDeals(query);
 }
 
-// ── LOG ──────────────────────────────────────────────────
 function addLog(msg) {
-  const lines = document.getElementById("logLines");
-  const t = new Date().toLocaleTimeString();
-  const row = document.createElement("div");
+  var lines = document.getElementById("logLines");
+  var t     = new Date().toLocaleTimeString();
+  var row   = document.createElement("div");
   row.className = "log-line";
-  row.innerHTML = `<span class="log-time">${t}</span><span>${msg}</span>`;
+  row.innerHTML = '<span class="log-time">' + t + '</span><span>' + msg + '</span>';
   lines.appendChild(row);
   lines.scrollTop = lines.scrollHeight;
 }
 
-// ── FETCH DEALS ──────────────────────────────────────────
-async function fetchDeals(query) {
+function fetchDeals(query) {
   currentQuery = query;
-  allDeals = [];
+  allDeals     = [];
   showResults();
 
-  // Show log + spinner
-  const log = document.getElementById("agentLog");
-  const spinner = document.getElementById("spinner");
-  const grid = document.getElementById("dealGrid");
-  const empty = document.getElementById("emptyState");
-  const header = document.getElementById("resultsHeader");
-  const filters = document.getElementById("filtersBar");
+  var logEl   = document.getElementById("agentLog");
+  var spinner = document.getElementById("spinner");
+  var grid    = document.getElementById("dealGrid");
+  var empty   = document.getElementById("emptyState");
+  var header  = document.getElementById("resultsHeader");
+  var filters = document.getElementById("filtersBar");
 
-  log.classList.add("visible");
+  logEl.classList.add("visible");
   spinner.classList.add("visible");
   empty.style.display = "none";
   header.classList.remove("visible");
   filters.classList.remove("visible");
   document.getElementById("logLines").innerHTML = "";
 
-  addLog(`🔍 Starting search for: "${query}"`);
+  addLog('🔍 Starting search for: "' + query + '"');
 
-  // Skeleton cards
   grid.innerHTML = "";
-  for (let i=0;i<9;i++) {
-    grid.innerHTML += `
-      <div class="skeleton">
-        <div class="skel-block" style="height:160px;border-radius:12px;margin-bottom:16px;"></div>
-        <div class="skel-block" style="height:10px;width:40%;margin-bottom:10px;"></div>
-        <div class="skel-block" style="height:14px;margin-bottom:8px;"></div>
-        <div class="skel-block" style="height:14px;width:80%;margin-bottom:14px;"></div>
-        <div class="skel-block" style="height:22px;width:50%;margin-bottom:14px;"></div>
-        <div class="skel-block" style="height:38px;border-radius:10px;"></div>
-      </div>`;
+  for (var i = 0; i < 9; i++) {
+    grid.innerHTML += '<div class="skeleton"><div class="skel-block" style="height:160px;border-radius:12px;margin-bottom:16px;"></div><div class="skel-block" style="height:10px;width:40%;margin-bottom:10px;"></div><div class="skel-block" style="height:14px;margin-bottom:8px;"></div><div class="skel-block" style="height:14px;width:80%;margin-bottom:14px;"></div><div class="skel-block" style="height:22px;width:50%;margin-bottom:14px;"></div><div class="skel-block" style="height:38px;border-radius:10px;"></div></div>';
   }
 
-  // Staggered log messages
-  const msgs = [
-    [500,  "📡 Connecting to Amazon catalog..."],
-    [1000, "🏪 Scanning Walmart deals..."],
-    [1500, "🎯 Checking Target offers..."],
-    [2000, "👗 Browsing Macy's & Nordstrom..."],
-    [2500, "⚡ Searching eBay & Best Buy..."],
-    [3000, "🧠 AI ranking deals by value..."],
-  ];
-  msgs.forEach(([d,m]) => setTimeout(()=>addLog(m), d));
+  setTimeout(function(){ addLog("📡 Connecting to Amazon catalog..."); }, 500);
+  setTimeout(function(){ addLog("🏪 Scanning Walmart deals..."); }, 1000);
+  setTimeout(function(){ addLog("🎯 Checking Target offers..."); }, 1500);
+  setTimeout(function(){ addLog("👗 Browsing Macy's & Nordstrom..."); }, 2000);
+  setTimeout(function(){ addLog("⚡ Searching eBay & Best Buy..."); }, 2500);
+  setTimeout(function(){ addLog("🧠 AI ranking deals by value..."); }, 3000);
 
-  try {
-    const res = await fetch("/api/deals", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ query: query })
-    });
-
-const data = await res.json();
-    if (!data.deals || !Array.isArray(data.deals)) {
-      throw new Error("Bad response");
+  fetch("/api/deals", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ query: query })
+  })
+  .then(function(response) {
+    if (!response.ok) {
+      throw new Error("Server error " + response.status);
     }
-    const deals = data.deals;
-    allDeals = deals;
-    addLog(`✅ Found ${deals.length} deals! Sorting by best value...`);
-    setTimeout(() => {
+    return response.json();
+  })
+  .then(function(data) {
+    if (!data || !data.deals || !Array.isArray(data.deals) || data.deals.length === 0) {
+      throw new Error("No deals in response");
+    }
+    allDeals = data.deals;
+    addLog("✅ Found " + allDeals.length + " deals! Sorting by best value...");
+    setTimeout(function() {
       spinner.classList.remove("visible");
       renderDeals(allDeals, query);
     }, 400);
-
-  } catch(e) {
-    addLog("❌ Error fetching deals. Please try again.");
+  })
+  .catch(function(err) {
+    console.error("Error:", err);
+    addLog("❌ Error: " + err.message);
     spinner.classList.remove("visible");
-    grid.innerHTML = `<div style="text-align:center;padding:40px;color:#c0392b;grid-column:1/-1;">Something went wrong. Please try searching again.</div>`;
-  }
+    grid.innerHTML = '<div style="text-align:center;padding:40px;color:#c0392b;grid-column:1/-1;font-size:15px;">Something went wrong. Please try searching again.</div>';
+  });
 }
 
-// ── RENDER DEALS ─────────────────────────────────────────
 function renderDeals(deals, query) {
-  const grid = document.getElementById("dealGrid");
-  const header = document.getElementById("resultsHeader");
-  const filters = document.getElementById("filtersBar");
-  const stores = [...new Set(deals.map(d=>d.store))];
+  var grid    = document.getElementById("dealGrid");
+  var header  = document.getElementById("resultsHeader");
+  var filters = document.getElementById("filtersBar");
+  var storeSet = [];
+  deals.forEach(function(d) { if (storeSet.indexOf(d.store) === -1) storeSet.push(d.store); });
 
-  // Header
-  document.getElementById("resultsTitle").textContent = `Results for "${query}"`;
-  document.getElementById("resultsSub").textContent = `${deals.length} deals · ${stores.length} stores · Sorted by best discount`;
+  document.getElementById("resultsTitle").textContent = 'Results for "' + query + '"';
+  document.getElementById("resultsSub").textContent   = deals.length + " deals · " + storeSet.length + " stores";
   header.classList.add("visible");
-
-  // Filters
   filters.classList.add("visible");
-  // Remove old store filters
-  filters.querySelectorAll(".filter-btn").forEach(b=>b.remove());
-  // Add All + store buttons
-  ["All",...stores].forEach(s => {
-    const b = document.createElement("button");
-    b.className = "filter-btn" + (s==="All"?" active":"");
+
+  filters.querySelectorAll(".filter-btn").forEach(function(b){ b.remove(); });
+  ["All"].concat(storeSet).forEach(function(s) {
+    var b = document.createElement("button");
+    b.className = "filter-btn" + (s === "All" ? " active" : "");
     b.textContent = s;
-    b.onclick = () => {
-      filters.querySelectorAll(".filter-btn").forEach(x=>x.classList.remove("active"));
+    b.onclick = function() {
+      filters.querySelectorAll(".filter-btn").forEach(function(x){ x.classList.remove("active"); });
       b.classList.add("active");
       applyFilters();
     };
     filters.appendChild(b);
   });
 
-  // Cards
   grid.innerHTML = "";
-  deals.forEach((d,i) => {
-    const disc = d.originalPrice ? Math.round((1-d.price/d.originalPrice)*100) : 0;
-    const stars = starsHTML(d.rating);
-    const affLink = amazonLink(d.amazonSearch || d.name);
+  deals.forEach(function(d, i) {
+    var disc    = d.originalPrice ? Math.round((1 - d.price / d.originalPrice) * 100) : 0;
+    var stars   = starsHTML(d.rating);
+    var affLink = "https://www.amazon.com/s?k=" + encodeURIComponent(d.amazonSearch || d.name) + "&tag=" + AFFILIATE_ID;
 
-    const card = document.createElement("div");
+    var card = document.createElement("div");
     card.className = "deal-card";
-    card.style.animationDelay = (i*60)+"ms";
-    card.innerHTML = `
-      ${disc>0?`<div class="deal-discount">-${disc}%</div>`:""}
-      ${d.badge?`<div class="deal-badge">${d.badge}</div>`:""}
-      <div class="deal-img" style="background:linear-gradient(135deg,${d.color1||"#f0e8dc"},${d.color2||"#e8dcd0"})">${d.emoji}</div>
-      <div class="deal-store">${d.store}</div>
-      <div class="deal-name">${d.name}</div>
-      <div class="stars">${stars}<span class="rating-num">${d.rating}</span></div>
-      <div class="deal-price-row">
-        <div class="deal-price">$${d.price}</div>
-        ${d.originalPrice?`<div class="deal-orig">$${d.originalPrice}</div>`:""}
-      </div>
-      ${d.shipping?`<div class="deal-ship">✓ ${d.shipping}</div>`:""}
-      <button class="deal-btn">View Deal →</button>
-    `;
-    card.onclick = () => openModal(d, affLink);
+    card.style.animationDelay = (i * 60) + "ms";
+    card.innerHTML =
+      (disc > 0 ? '<div class="deal-discount">-' + disc + '%</div>' : "") +
+      (d.badge ? '<div class="deal-badge">' + d.badge + '</div>' : "") +
+      '<div class="deal-img" style="background:linear-gradient(135deg,' + (d.color1 || "#f0e8dc") + ',' + (d.color2 || "#e8dcd0") + ')">' + d.emoji + '</div>' +
+      '<div class="deal-store">' + d.store + '</div>' +
+      '<div class="deal-name">' + d.name + '</div>' +
+      '<div class="stars">' + stars + '<span class="rating-num">' + d.rating + '</span></div>' +
+      '<div class="deal-price-row"><div class="deal-price">$' + d.price + '</div>' +
+      (d.originalPrice ? '<div class="deal-orig">$' + d.originalPrice + '</div>' : "") + '</div>' +
+      (d.shipping ? '<div class="deal-ship">✓ ' + d.shipping + '</div>' : "") +
+      '<button class="deal-btn">View Deal →</button>';
+
+    card.onclick = function(){ openModal(d, affLink); };
     grid.appendChild(card);
   });
 }
 
 function applyFilters() {
-  const activeStore = document.querySelector(".filter-btn.active")?.textContent || "All";
-  const sort = document.getElementById("sortSelect").value;
-  let filtered = activeStore==="All" ? [...allDeals] : allDeals.filter(d=>d.store===activeStore);
-  if (sort==="price")    filtered.sort((a,b)=>a.price-b.price);
-  if (sort==="rating")   filtered.sort((a,b)=>b.rating-a.rating);
-  if (sort==="discount") filtered.sort((a,b)=>{
-    const da = a.originalPrice?Math.round((1-a.price/a.originalPrice)*100):0;
-    const db = b.originalPrice?Math.round((1-b.price/b.originalPrice)*100):0;
-    return db-da;
+  var activeBtn   = document.querySelector(".filter-btn.active");
+  var activeStore = activeBtn ? activeBtn.textContent : "All";
+  var sort        = document.getElementById("sortSelect").value;
+  var filtered    = activeStore === "All" ? allDeals.slice() : allDeals.filter(function(d){ return d.store === activeStore; });
+  if (sort === "price")    filtered.sort(function(a,b){ return a.price - b.price; });
+  if (sort === "rating")   filtered.sort(function(a,b){ return b.rating - a.rating; });
+  if (sort === "discount") filtered.sort(function(a,b){
+    var da = a.originalPrice ? Math.round((1 - a.price/a.originalPrice)*100) : 0;
+    var db = b.originalPrice ? Math.round((1 - b.price/b.originalPrice)*100) : 0;
+    return db - da;
   });
   renderDeals(filtered, currentQuery);
 }
 
-// ── AMAZON AFFILIATE LINK ─────────────────────────────────
-function amazonLink(searchTerm) {
-  const q = encodeURIComponent(searchTerm);
-  return `https://www.amazon.com/s?k=${q}&tag=${AFFILIATE_ID}`;
-}
-
-// ── MODAL ─────────────────────────────────────────────────
 function openModal(deal, affLink) {
-  const disc = deal.originalPrice ? Math.round((1-deal.price/deal.originalPrice)*100) : 0;
-  document.getElementById("modalStore").textContent = deal.store;
-  document.getElementById("modalImg").style.background = `linear-gradient(135deg,${deal.color1||"#f0e8dc"},${deal.color2||"#e8dcd0"})`;
-  document.getElementById("modalImg").textContent = deal.emoji;
-  document.getElementById("modalName").textContent = deal.name;
-  document.getElementById("modalStars").innerHTML = `<div class="stars">${starsHTML(deal.rating)}<span class="rating-num">${deal.rating}</span></div>`;
-  document.getElementById("modalPrice").textContent = "$"+deal.price;
-  document.getElementById("modalOrig").textContent = deal.originalPrice?"$"+deal.originalPrice:"";
-  document.getElementById("modalSave").textContent = disc>0?"Save "+disc+"%":"";
-  document.getElementById("modalShip").textContent = deal.shipping?"✓ "+deal.shipping:"";
-  document.getElementById("modalWhy").textContent =
-    `This product is listed at a ${disc}% discount from its usual price of $${deal.originalPrice}. Sold by ${deal.store} with a verified buyer rating of ${deal.rating}/5 stars. Clicking below will take you directly to the store.`;
+  var disc = deal.originalPrice ? Math.round((1 - deal.price / deal.originalPrice) * 100) : 0;
+  document.getElementById("modalStore").textContent  = deal.store;
+  document.getElementById("modalImg").style.background = "linear-gradient(135deg," + (deal.color1||"#f0e8dc") + "," + (deal.color2||"#e8dcd0") + ")";
+  document.getElementById("modalImg").textContent    = deal.emoji;
+  document.getElementById("modalName").textContent   = deal.name;
+  document.getElementById("modalStars").innerHTML    = '<div class="stars">' + starsHTML(deal.rating) + '<span class="rating-num">' + deal.rating + '</span></div>';
+  document.getElementById("modalPrice").textContent  = "$" + deal.price;
+  document.getElementById("modalOrig").textContent   = deal.originalPrice ? "$" + deal.originalPrice : "";
+  document.getElementById("modalSave").textContent   = disc > 0 ? "Save " + disc + "%" : "";
+  document.getElementById("modalShip").textContent   = deal.shipping ? "✓ " + deal.shipping : "";
+  document.getElementById("modalWhy").textContent    = "This product is listed at a " + disc + "% discount from its usual price of $" + deal.originalPrice + ". Sold by " + deal.store + " with a rating of " + deal.rating + "/5 stars.";
 
-  const btn = document.getElementById("modalGoBtn");
-  // For Amazon deals use affiliate link, otherwise go to store search
-  if (deal.store === "Amazon") {
-    btn.textContent = "View on Amazon →";
-    btn.onclick = () => window.open(affLink, "_blank");
-  } else {
-    btn.textContent = `View on ${deal.store} →`;
-    btn.onclick = () => window.open(`https://www.${deal.store.toLowerCase().replace("'","").replace(" ","")+".com"}`, "_blank");
-  }
+  var btn = document.getElementById("modalGoBtn");
+  btn.textContent = "View on " + deal.store + " →";
+  btn.onclick = function(){ window.open(affLink, "_blank"); };
 
   document.getElementById("modalOverlay").classList.add("visible");
 }
@@ -919,18 +594,19 @@ function openModal(deal, affLink) {
 function closeModal(e) {
   if (e.target === document.getElementById("modalOverlay")) closeModalDirect();
 }
+
 function closeModalDirect() {
   document.getElementById("modalOverlay").classList.remove("visible");
 }
 
-// ── STARS ────────────────────────────────────────────────
 function starsHTML(r) {
-  let h = "";
-  for (let i=1;i<=5;i++) h+=`<span class="star ${i<=Math.round(r)?"on":"off"}">★</span>`;
+  var h = "";
+  for (var i = 1; i <= 5; i++) {
+    h += '<span class="star ' + (i <= Math.round(r) ? "on" : "off") + '">★</span>';
+  }
   return h;
 }
 
-// ── INIT ─────────────────────────────────────────────────
 buildUI();
 </script>
 </body>
