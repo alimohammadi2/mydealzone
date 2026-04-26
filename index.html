@@ -23,22 +23,41 @@
   .divider { height: 1px; background: #e8e0d5; margin-bottom: 32px; }
   .price-label { font-size: 12px; color: #8a7a6a; letter-spacing: 1px; text-transform: uppercase; font-weight: 700; margin-bottom: 8px; }
   .price { font-family: 'Playfair Display', serif; font-size: 48px; color: #1a1008; margin-bottom: 8px; }
-  .price-note { font-size: 13px; color: #8a7a6a; margin-bottom: 28px; }
-  .contact-btn { display: block; width: 100%; padding: 16px; background: #1a1008; color: #c8a97e; border: none; border-radius: 14px; font-size: 16px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; margin-bottom: 12px; text-decoration: none; transition: all 0.2s; }
-  .contact-btn:hover { background: #2c1810; transform: translateY(-2px); }
-  .email-btn { display: block; width: 100%; padding: 16px; background: none; color: #8a7a6a; border: 1px solid #e8e0d5; border-radius: 14px; font-size: 15px; font-weight: 600; font-family: 'DM Sans', sans-serif; text-decoration: none; transition: all 0.2s; }
-  .email-btn:hover { border-color: #c8a97e; color: #1a1008; }
-  .footer-note { margin-top: 28px; font-size: 12px; color: #b0a090; line-height: 1.6; }
-  @media (max-width: 500px) { .card { padding: 32px 24px; } h1 { font-size: 30px; } .price { font-size: 36px; } .features { grid-template-columns: 1fr; } }
+  .price-note { font-size: 13px; color: #8a7a6a; margin-bottom: 32px; }
+
+  .contact-box { background: #f7f3ee; border-radius: 16px; padding: 24px; border: 1px solid #e8e0d5; margin-bottom: 16px; }
+  .contact-label { font-size: 12px; color: #8a7a6a; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 10px; }
+  .email-display { font-size: 18px; font-weight: 700; color: #1a1008; margin-bottom: 14px; word-break: break-all; }
+  .copy-btn { display: inline-block; padding: 10px 24px; background: #1a1008; color: #c8a97e; border: none; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; font-family: 'DM Sans', sans-serif; transition: all 0.2s; }
+  .copy-btn:hover { background: #2c1810; }
+  .copy-success { font-size: 13px; color: #2d6a4f; font-weight: 600; margin-top: 10px; display: none; }
+
+  .subject-box { background: #fff; border-radius: 12px; padding: 16px 20px; border: 1px solid #e8e0d5; margin-bottom: 16px; text-align: left; }
+  .subject-label { font-size: 11px; color: #8a7a6a; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .subject-text { font-size: 14px; color: #1a1008; font-weight: 600; }
+
+  .footer-note { margin-top: 24px; font-size: 12px; color: #b0a090; line-height: 1.6; }
+
+  @media (max-width: 500px) {
+    .card { padding: 32px 24px; }
+    h1 { font-size: 30px; }
+    .price { font-size: 36px; }
+    .features { grid-template-columns: 1fr; }
+  }
 </style>
 </head>
 <body>
+
 <div class="card">
   <div class="icon">🛍️</div>
   <div class="for-sale-badge">For Sale</div>
   <h1>Premium Domain</h1>
   <div class="domain">MyDealZone.com</div>
-  <p class="description">A powerful, memorable brand in the fast-growing deal aggregator and affiliate marketing space. Ready to launch with hosting configured and Amazon Associates account active.</p>
+
+  <p class="description">
+    A powerful, memorable brand in the fast-growing deal aggregator and affiliate marketing space. Ready to launch with hosting configured and Amazon Associates account active.
+  </p>
+
   <div class="features">
     <div class="feature"><span class="feature-icon">🌐</span><span class="feature-text">Premium .com domain</span></div>
     <div class="feature"><span class="feature-icon">⚡</span><span class="feature-text">Live website included</span></div>
@@ -47,13 +66,44 @@
     <div class="feature"><span class="feature-icon">🔒</span><span class="feature-text">HTTPS secured</span></div>
     <div class="feature"><span class="feature-icon">🚀</span><span class="feature-text">Free hosting on Vercel</span></div>
   </div>
+
   <div class="divider"></div>
+
   <div class="price-label">Asking Price</div>
   <div class="price">Open to Offers</div>
   <div class="price-note">Includes domain + website + Amazon affiliate account transfer</div>
-  <a class="contact-btn" href="mailto:hyphenhorizon@gmail.com?subject=Interested in MyDealZone.com">📩 Contact to Make an Offer</a>
-  <a class="email-btn" href="mailto:hyphenhorizon@gmail.com?subject=Question about MyDealZone.com">Ask a Question</a>
-  <div class="footer-note">Serious inquiries only. Domain transfer via Namecheap.<br>Payment via PayPal or bank transfer.</div>
+
+  <!-- Contact Section -->
+  <div class="contact-box">
+    <div class="contact-label">📩 To Make an Offer — Email Us At</div>
+    <div class="email-display" id="emailAddr">hyphenhorizon@gmail.com</div>
+    <button class="copy-btn" onclick="copyEmail()">Copy Email Address</button>
+    <div class="copy-success" id="copySuccess">✓ Email copied to clipboard!</div>
+  </div>
+
+  <div class="subject-box">
+    <div class="subject-label">Use this subject line</div>
+    <div class="subject-text">Interested in buying MyDealZone.com</div>
+  </div>
+
+  <div class="footer-note">
+    Serious inquiries only · Domain transfer via Namecheap<br>
+    Payment via PayPal or bank transfer
+  </div>
 </div>
+
+<script>
+function copyEmail() {
+  var email = document.getElementById("emailAddr").textContent;
+  navigator.clipboard.writeText(email).then(function() {
+    var success = document.getElementById("copySuccess");
+    success.style.display = "block";
+    setTimeout(function() { success.style.display = "none"; }, 3000);
+  }).catch(function() {
+    prompt("Copy this email address:", email);
+  });
+}
+</script>
+
 </body>
 </html>
