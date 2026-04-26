@@ -804,29 +804,20 @@ Each object must have these exact fields:
 
 Make deals realistic, varied across different stores and price points. Include well known brands.`;
 
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
+    const res = await fetch("/api/deals", {
       method: "POST",
-      headers: { 
-  "Content-Type": "application/json",
-  "x-api-key": API_KEY,
-  "anthropic-version": "2023-06-01"
-},
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 1500,
-        messages: [{ role: "user", content: prompt }]
-      })
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ query: query })
     });
 
     const data = await res.json();
-    const text = (data.content||[]).map(b=>b.text||"").join("");
+    const text = JSON.stringify(data.deals);
+    const deals = data.deals;
+    if (!Array.isArray(deals)) throw new Error("Bad response");
     const clean = text.replace(/```json|```/g,"").trim();
     const match = clean.match(/\[[\s\S]*\]/);
     if (!match) throw new Error("No JSON found");
-    const parsed = JSON.parse(match[0]);
-    if (!Array.isArray(parsed)) throw new Error("Not array");
-
-    allDeals = parsed;
+    allDeals = deals;
     addLog(`✅ Found ${parsed.length} deals! Sorting by best value...`);
 
     setTimeout(() => {
