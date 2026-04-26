@@ -785,41 +785,19 @@ async function fetchDeals(query) {
   msgs.forEach(([d,m]) => setTimeout(()=>addLog(m), d));
 
   try {
-    const prompt = `You are a deal aggregator AI. Generate exactly 9 realistic product deals for: "${query}"
-
-Return ONLY a raw JSON array. No markdown. No explanation. Just the JSON array.
-
-Each object must have these exact fields:
-- name: string (specific product name with brand, max 65 chars)
-- store: string (one of: Amazon, Walmart, Target, Macy's, eBay, Nordstrom, Best Buy, Etsy, Costco, Zappos)
-- price: number (realistic sale price)
-- originalPrice: number (original price, 20-55% higher than price)
-- rating: number (between 3.8 and 4.9, one decimal place)
-- shipping: string (e.g. "Free shipping" or "Free 2-day shipping" or "Free returns")
-- emoji: string (single relevant emoji for the product)
-- color1: string (warm light hex color like #f0e8dc for the product image background)
-- color2: string (slightly different warm hex like #e8dcd0)
-- badge: string or null (one of: "Best Seller", "Hot Deal", "Editor's Pick", "#1 Rated", "New Arrival", or null)
-- amazonSearch: string (3-5 word Amazon search term for this product type)
-
-Make deals realistic, varied across different stores and price points. Include well known brands.`;
-
     const res = await fetch("/api/deals", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ query: query })
     });
 
-    const data = await res.json();
-    const text = JSON.stringify(data.deals);
+const data = await res.json();
+    if (!data.deals || !Array.isArray(data.deals)) {
+      throw new Error("Bad response");
+    }
     const deals = data.deals;
-    if (!Array.isArray(deals)) throw new Error("Bad response");
-    const clean = text.replace(/```json|```/g,"").trim();
-    const match = clean.match(/\[[\s\S]*\]/);
-    if (!match) throw new Error("No JSON found");
     allDeals = deals;
-    addLog(`✅ Found ${parsed.length} deals! Sorting by best value...`);
-
+    addLog(`✅ Found ${deals.length} deals! Sorting by best value...`);
     setTimeout(() => {
       spinner.classList.remove("visible");
       renderDeals(allDeals, query);
